@@ -14,20 +14,19 @@ var Mountain = (function(){
 	function Mountain(){
 		this.color = 'black';
 		this.y = can.height/2;
-		this.hilly = 0.2;
+		this.hilly = 0.1;
 		this.start = -50;
 		this.dipCount = 5;
 		
 		this.end = can.width;
 		this.resetDips();
-		
 	}
 
 	Mountain.prototype.resetDips = function(){
 		this.dips = [];
 		for(var i = 0; i <= this.dipCount; i ++){
 			this.dips.push({
-				x:(this.end/this.dipCount)*i,
+				x:(this.end/this.dipCount*i),
 				y:this.y+(this.y*Math.random()*this.hilly)
 			});
 			var dip = this.dips[this.dips.length-1];
@@ -39,12 +38,13 @@ var Mountain = (function(){
 		con.beginPath();
 		con.moveTo(0,this.y);
 		con.fillStyle = this.color;
-		for(var i = 0; i <= this.dips.length; i ++){
-			var dip = this.dips[this.dips.length-1];
+		for(var i = 0; i < this.dips.length; i ++){
+			var dip = this.dips[i];
 			con.lineTo(dip.x,dip.y)
 		}
-		console.log(this.dips);
-		con.stroke();
+		con.lineTo(end,end);
+		con.lineTo(0,end);
+		con.fill();
 	};
 
 	return Mountain;
